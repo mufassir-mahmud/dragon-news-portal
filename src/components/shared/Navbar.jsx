@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import NavLink from './NavLink';
 import user from '@/assets/user.png'
 import Image from 'next/image';
+import Link from 'next/link';
 const Navbar = () => {
     const links = <>
     <Suspense fallback={<div>loading....</div>}>
@@ -35,7 +36,7 @@ const Navbar = () => {
   <div className="navbar-end">
     <div className='flex flex-col md:flex-row justify-between gap-4 items-center'>
       <Image src={user} width={40} height={30} alt='user'></Image>
-    <a className="btn">Login</a>  
+    <Link href={'/login'} className="btn">Login</Link>  
     </div>
     
   </div>

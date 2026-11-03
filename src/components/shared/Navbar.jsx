@@ -1,9 +1,16 @@
+"use client"
 import React, { Suspense } from 'react';
 import NavLink from './NavLink';
 import user from '@/assets/user.png'
 import Image from 'next/image';
 import Link from 'next/link';
+import { authClient } from '@/lib/auth-client';
 const Navbar = () => {
+    
+const { data: session, isPending } = authClient.useSession();
+console.log(session)
+const user = session?.user;
+console.log(user)
     const links = <>
     <Suspense fallback={<div>loading....</div>}>
             <li><NavLink href={"/"}>Home</NavLink></li>
@@ -35,8 +42,15 @@ const Navbar = () => {
   </div>
   <div className="navbar-end">
     <div className='flex flex-col md:flex-row justify-between gap-4 items-center'>
-      <Image src={user} width={40} height={30} alt='user'></Image>
-    <Link href={'/login'} className="btn">Login</Link>  
+      {
+        isPending ? <p>loading....</p> : user ? (<div className='flex gap-3'>
+          <Image src={user.image} width={40} height={30} alt='user'></Image>
+          <p>Welcome {user.name}</p>
+          <Link onClick={() => authClient.signOut()} href={'/login'} className="btn">Logout</Link> 
+        </div>) :  <Link href={'/login'} className="btn">Login</Link> 
+      }
+      
+   
     </div>
     
   </div>

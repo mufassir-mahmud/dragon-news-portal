@@ -4,7 +4,7 @@ import { getCatagories, newsCastagoriesById } from "@/lib/data";
 
 
 
-export default async function Home() {
+const NewsPage = async() => {
   const catagories = await getCatagories();
   const newsCatagories = catagories.news_category
   console.log(newsCatagories)
@@ -22,3 +22,4 @@ export default async function Home() {
    </div>
   );
 }
+export default NewsPage;
